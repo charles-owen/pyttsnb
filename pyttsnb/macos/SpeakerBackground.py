@@ -1,11 +1,23 @@
 
 
-
+from objc import super
 import AVFoundation
 import threading
 import queue
-from CoreFoundation import ( CFRunLoopRun, CFRunLoopStop, CFRunLoopGetMain,CFRunLoopGetCurrent,
-    kCFRunLoopDefaultMode, CFRunLoopPerformBlock, CFRunLoopWakeUp)
+from Foundation import NSObject, NSRunLoop, NSDate
+from CoreFoundation import (
+    CFRunLoopRun,
+    CFRunLoopStop,
+    CFRunLoopGetMain,
+    CFRunLoopGetCurrent,
+    kCFRunLoopDefaultMode,
+    CFRunLoopPerformBlock,
+    CFRunLoopWakeUp)
+
+# Define a delegate class to handle speech events
+class SpeechDelegate(NSObject):
+    def speechSynthesizer_didFinishSpeechUtterance_(self, synthesizer, utterance):
+        print("✅ Speech finished: ", utterance.speechString)
 
 """
 This class is for the code runs
@@ -29,6 +41,10 @@ class SpeakerBackground():
         # and create the speech synthesizer
         self._voice = AVFoundation.AVSpeechSynthesisVoice.voiceWithLanguage_("en-GB")
         self._synth = AVFoundation.AVSpeechSynthesizer.alloc().init()
+
+        delegate = SpeechDelegate.alloc().init()
+        self.d = delegate
+        self._synth.setDelegate_(delegate)
 
         # A worker thread that will listen for
         # messages from the foreground process and
