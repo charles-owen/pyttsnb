@@ -1,10 +1,10 @@
-from pyttsnb import Speaker
+import pyttsnb
 
 # the entry module for any script must
 # include this test for main
 if __name__ == "__main__":
     print("Hello")
-    speaker = Speaker()
+    speaker = pyttsnb.create()
     speaker.start()
     speaker.say("Welcome to pi t t s n b")
 

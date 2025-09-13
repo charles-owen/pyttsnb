@@ -1,1 +1,1 @@
-from .MacSpeaker import MacSpeaker
+from .SpeakerMacos import SpeakerMacos

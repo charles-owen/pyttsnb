@@ -1,4 +1,4 @@
-
+from ..Speaker import Speaker
 """
 Management of all speech functionality
 for a Mac system
@@ -10,10 +10,11 @@ from .SpeakerBackground import SpeakerBackground
 Non-blocking speech synthesis 
 for Mac systems
 """
-class MacSpeaker :
+class SpeakerMacos(Speaker) :
     def __init__(self):
         # The queue that transmits
         # messages to the background process
+        super().__init__()
         self._queue = multiprocessing.Queue()
 
         self._process = None
